@@ -270,7 +270,7 @@ footer {
     }
 
     body:after {
-        content: "Ta aplikacja została zaprojektowana wyłącznie na komputery i laptopy. Przesiadaj się na większy ekran, aby wygodnie zarządzać bazami SQLite! \1F4BB";
+        content: "Ta strona została zaprojektowana wyłącznie na komputery i laptopy. Przesiadaj się na większy ekran, aby wygodnie zarządzać bazami SQLite! \1F4BB";
         display: block;
         padding: 40px;
         text-align: center;
