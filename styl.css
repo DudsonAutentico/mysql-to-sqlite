@@ -256,3 +256,26 @@ footer {
     transform: translateY(0);
     pointer-events: auto;
 }
+
+/* BLOKADA MOBILNA: Ukrywa aplikację na ekranach mniejszych niż laptopy (np. poniżej 1024px) */
+@media (max-width: 1023px) {
+    #sekcje, footer, header .toggle {
+        display: none !important; /* Ukrywa resztę strony */
+    }
+    
+    header #naglowek h1 {
+        font-size: 16pt;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    body:after {
+        content: "Ta aplikacja została zaprojektowana wyłącznie na komputery i laptopy. Przesiadaj się na większy ekran, aby wygodnie zarządzać bazami SQLite! \1F4BB";
+        display: block;
+        padding: 40px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 13pt;
+        line-height: 1.6;
+    }
+}
