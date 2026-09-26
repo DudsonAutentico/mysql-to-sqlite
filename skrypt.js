@@ -7,6 +7,9 @@ const toast = document.getElementById('toast-powiadomienie');
 // ==========================================
 // 1. FUNKCJA TRANSLATORA DIALEKTÓW SQL
 // ==========================================
+// ==========================================
+// 1. FUNKCJA TRANSLATORA DIALEKTÓW SQL
+// ==========================================
 btnTlumacz.addEventListener('click', () => {
     const kodMysql = mysqlInput.value;
     if (kodMysql.trim() === "") {
@@ -15,12 +18,13 @@ btnTlumacz.addEventListener('click', () => {
     }
 
     let kodSqlite = kodMysql
-        // 1. CZYSZCZENIE KOMENTARZY BLOKOWYCH MYSQL ORAZ BACKTICKÓW
+        // 1. NAPRAWA REGEX: Poprawne usuwanie komentarzy # oraz blokowych bez niszczenia enterów
+        .replace(/^#.*$/gm, '') // POPRAWIONE: bezpiecznie usuwa całą linię zaczynającą się od #
         .replace(/\/\*!.*?\*\/;/g, '')
         .replace(/\/\*!.*?\*\//g, '')
         .replace(/`/g, '')
         
-        // 2. KLUCZOWA POPRAWKA: Czyszczenie wielokrotnych spacji wyłącznie w poziomie (nie niszczy enterów!)
+        // 2. Czyszczenie wielokrotnych spacji wyłącznie w poziomie (nie niszczy enterów)
         .replace(/[^\S\r\n]+/g, ' ')
 
         // 3. TRANSLACJA KLUCZY GŁÓWNYCH I AUTO_INCREMENT 
@@ -36,7 +40,7 @@ btnTlumacz.addEventListener('click', () => {
         .replace(/\bINT\s*\(\d+\)/gi, 'INTEGER')     
         .replace(/\bINTEGER\s*\(\d+\)/gi, 'INTEGER') 
         .replace(/\b(DATETIME|TIMESTAMP)\s*\(\d+\)/gi, '$1') 
-        .replace(/CURRENT_TIMESTAMP\s*\(\d+\)/gi, 'CURRENT_TIMESTAMP') // Czyści CURRENT_TIMESTAMP(6) na CURRENT_TIMESTAMP
+        .replace(/CURRENT_TIMESTAMP\s*\(\d+\)/gi, 'CURRENT_TIMESTAMP') 
 
         // 5. UPROSZCZENIE POZOSTAŁYCH TYPÓW DANYCH DLA SQLITE
         .replace(/\b(VARCHAR|CHAR|LONGTEXT|MEDIUMTEXT|TINYTEXT)\s*\(\d+\)/gi, 'TEXT')
@@ -63,10 +67,10 @@ btnTlumacz.addEventListener('click', () => {
         .replace(/ENGINE\s*=\s*\w+\s*(DEFAULT\s+CHARSET\s*=\s*\w+)?\s*(COLLATE\s*=\s*\w+)?/gi, '')
         .replace(/ON\s+UPDATE\s+CURRENT_TIMESTAMP\s*(\(\s*\))?/gi, '');
 
-    // 9. USUNIĘCIE ZDUBWLOWANEJ KLAUZULI PRIMARY KEY NA DOLE (Skorygowany Regex ze zwykłą spacją)
+    // 9. USUNIĘCIE ZDUBWLOWANEJ KLAUZULI PRIMARY KEY NA DOLE
     kodSqlite = kodSqlite.replace(/,\s*PRIMARY\s+KEY\s*\([^)]+\)/gi, '');
 
-    sqliteOutput.value = kodSqlite;
+    sqliteOutput.value = kodSqlite.trim(); // Dodany .trim() dla estetycznego oczyszczenia pustych linii na starcie i końcu
     btnKopiuj.style.visibility = 'visible';
 });
 
