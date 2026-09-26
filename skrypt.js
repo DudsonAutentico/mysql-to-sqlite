@@ -15,16 +15,26 @@ btnTlumacz.addEventListener('click', () => {
     }
 
     let kodSqlite = kodMysql
+        // Czyszczenie komentarzy wykonywalnych i systemowych MySQL (np. z phpMyAdmin)
+        .replace(/\/\*!.*?\*\/\s*;/g, '')
+        .replace(/\/\*!.*?\*\//g, '')
         .replace(/`/g, '')
         .replace(/ENGINE\s*=\s*\w+\s*(DEFAULT\s+CHARSET\s*=\s*\w+)?\s*(COLLATE\s*=\s*\w+)?/gi, '')
         .replace(/^#.*\$/gm, '')
+
+        // Tłumaczenie typów danych, precyzji i kluczy głównych
         .replace(/INT\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
         .replace(/BIGINT\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
         .replace(/AUTO_INCREMENT/gi, 'AUTOINCREMENT')
+        .replace(/\bINT\s*\(\d+\)/gi, 'INTEGER')
+        .replace(/\b(DATETIME|TIMESTAMP)\s*\(\d+\)/gi, '$1') // Usuwanie precyzji np. DATETIME(6)
+        .replace(/\bUNSIGNED\b/gi, '')                       // Usuwanie niekompatybilnego modyfikatora UNSIGNED
         .replace(/\b(VARCHAR|CHAR|LONGTEXT|MEDIUMTEXT|TINYTEXT)\(\d+\)/gi, 'TEXT')
         .replace(/\b(VARCHAR|CHAR|LONGTEXT|MEDIUMTEXT|TINYTEXT)\b/gi, 'TEXT')
         .replace(/\b(TINYINT|SMALLINT|MEDIUMINT|BIGINT)\b/gi, 'INTEGER')
         .replace(/\b(DOUBLE|FLOAT|DECIMAL\(\d+,\s*\d+\))\b/gi, 'REAL')
+
+        // Tłumaczenie zaawansowanych funkcji w zapytaniach (SELECT, INSERT, WHERE)
         .replace(/CONCAT\s*\(([^)]+)\)/gi, (match, g1) => {
             return g1.split(',').map(item => item.trim()).join(' || ');
         })
@@ -32,10 +42,12 @@ btnTlumacz.addEventListener('click', () => {
         .replace(/\bCURDATE\s*\(\s*\)/gi, "date('now')")
         .replace(/\bIFNULL\b/gi, 'COALESCE')
         .replace(/\bRAND\s*\(\s*\)/gi, 'random()')
+
+        // Poprawki logiczne, znaki ucieczki tekstów i modyfikatory czasu
         .replace(/\\'/g, "''")
         .replace(/\b(TRUE)\b/gi, '1')
         .replace(/\b(FALSE)\b/gi, '0')
-        .replace(/ON\s+UPDATE\s+CURRENT_TIMESTAMP\s*(\(\s*\))?/gi, '');
+        .replace(/ON\s+UPDATE\s+CURRENT_TIMESTAMP\s*(\(\s*\))?/gi, ''); // Usuwanie ON UPDATE psującego SQLite
     
     sqliteOutput.value = kodSqlite;
     btnKopiuj.style.visibility = 'visible';
