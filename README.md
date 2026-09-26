@@ -10,7 +10,7 @@ Nowoczesne, ultra lekkie i szybkie narzędzie webowe zaprojektowane z myślą o 
 
 * **Zorientowany na Desktop:** Interfejs zaprojektowany w układzie dwukolumnowym, zoptymalizowany pod kątem wygody i ergonomii pracy na monitorze komputera. Aplikacja posiada wbudowaną blokadę i komunikat dla urządzeń mobilnych.
 * **100% Prywatności i Lokalności:** Konwersja kodu odbywa się w ułamku sekundy bezpośrednio w Twojej przeglądarce za pomocą zaawansowanych wyrażeń regularnych (Regex). Wklejany kod SQL nie jest wysyłany na żaden zewnętrzny serwer.
-* **Vanilla Stack (Ultra lekki):** Cały projekt waży zaledwie kilkanaście KB. Został napisany czysto w językach HTML, CSS i JS — bez użycia jakichkolwiek ciężkich frameworków czy zewnętrznych bibliotek.
+* **Czysty kod (Ultra lekki):** Cała strona waży zaledwie kilkanaście KB. Została napisana w 100% czysto w językach HTML, CSS i natywnym JavaScript — bez użycia jakichkolwiek ciężkich frameworków czy zewnętrznych bibliotek.
 * **Efektowny UI (Glasmorfizm):** Nowoczesny interfejs z efektem szronionego szkła, wyposażony w płynny przełącznik motywów (Jasny / Ciemny) i automatyczne zapamiętywanie wyboru użytkownika za pomocą `localStorage`.
 * **Udogodnienia UX:** Dedykowany mechanizm schowka z przyciskiem "Kopiuj" oraz jaskrawozielonym powiadomieniem Toast, a także obsługa skrótu klawiszowego **`Ctrl + Enter`** do natychmiastowej konwersji kodu.
 
