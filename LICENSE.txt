@@ -1,0 +1,44 @@
+========================================================================
+LICENCJE DLA ELEMENTÓW GRAFICZNYCH SVG (SVG GRAPHICS LICENSES)
+========================================================================
+
+Niniejszy plik określa warunki korzystania oraz prawa autorskie do zasobów 
+graficznych w formacie SVG (Scalable Vector Graphics) użytych w aplikacji:
+
+1. IKONY W PRZEŁĄCZNIKU MOTYWÓW (Ikona słońca oraz ikona księżyca):
+   - Twórca: Konstantin Filatov
+   - Źródło: SVGRepo
+   - Licencja: Creative Commons Attribution License (CC-BY)
+   - Warunki: Zezwala na bezpłatne użytkowanie, pod warunkiem wskazania 
+     pierwotnego autora grafiki.
+
+2. IKONA POTWIERDZENIA W POWIADOMIENIU (Ikona Check Circle w Toaście):
+   - Źródło: SVGRepo
+   - Licencja: MIT License
+   - Warunki: Darmowe użycie komercyjne i prywatne bez ograniczeń, 
+     wymagane jest zachowanie informacji o licencji.
+
+3. PLIK IKONY WITRYNY (Favicon.svg):
+   Plik "favicon.svg" został skomponowany przy użyciu trzech odrębnych 
+   zasobów wektorowych pobranych z serwisu SVGRepo:
+
+   A) Logotyp MySQL (https://svgrepo.com)
+      - Licencja: MIT License
+      - Warunki: Darmowe użycie komercyjne i prywatne z zachowaniem informacji.
+
+   B) Logotyp SQLite (https://svgrepo.com)
+      - Licencja: Logo License
+      - Warunki: Bezpłatne, informacyjne wykorzystanie logotypu bazy 
+        danych w celu wskazania kompatybilności oprogramowania.
+
+   C) Ikona strzałki "Right Arrow" (https://svgrepo.com)
+      - Twórca: Mariusz Ostrowski
+      - Licencja: Creative Commons Attribution License (CC-BY)
+      - Warunki: Zezwala na bezpłatne użytkowanie, pod warunkiem 
+        wskazania pierwotnego autora grafiki.
+
+========================================================================
+Wszelkie prawa autorskie do komponentów graficznych należą do ich pierwotnych 
+twórców oraz organizacji (Oracle/MySQL, SQLite Consortium). Oznaczenie 
+autorstwa zostało zamieszczone w celu zachowania pełnej zgodności z warunkami 
+licencji Creative Commons oraz MIT.
