@@ -123,3 +123,13 @@ themeToggle.addEventListener('change', (e) => {
         localStorage.setItem('theme', 'light');
     }
 });
+// ===================================================
+// 4. OBSŁUGA SKRÓTU KLAWISZOWEGO (Ctrl + Enter)
+// ===================================================
+mysqlInput.addEventListener('keydown', (e) => {
+    // Sprawdza, czy wciśnięto Enter jednocześnie trzymając klawisz Ctrl (lub Cmd na Macu)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault(); // Zapobiega domyślnemu przełamaniu linii w textarea
+        btnTlumacz.click(); // Automatycznie symuluje kliknięcie przycisku "Przetłumacz"
+    }
+});
