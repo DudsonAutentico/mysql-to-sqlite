@@ -15,34 +15,39 @@ btnTlumacz.addEventListener('click', () => {
     }
 
     let kodSqlite = kodMysql
-        // 1. CZYSZCZENIE KOMENTARZY BLOKOWYCH MYSQL (np. /*!40101 ... */) ORAZ BACKTICKÓW
+        // 1. CZYSZCZENIE KOMENTARZY BLOKOWYCH MYSQL ORAZ BACKTICKÓW
         .replace(/\/\*!.*?\*\/\s*;/g, '')
         .replace(/\/\*!.*?\*\//g, '')
         .replace(/`/g, '')
         
-        // 2. TRANSLACJA KLUCZY GŁÓWNYCH I AUTO_INCREMENT (Z uwzględnieniem nawiasów np. INT(11))
-        // Ta zaawansowana reguła wyłapie i połączy rozbite definicje klucza głównego w jeden standard SQLite:
-        .replace(/INT\s*\(?\d*\)?\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
-        .replace(/BIGINT\s*\(?\d*\)?\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
-        .replace(/AUTO_INCREMENT/gi, 'AUTOINCREMENT')
+        // 2. NAPRAWA PODWÓJNYCH SPACJI I SŁÓW KLUCZOWYCH (np. aktywny  UNSIGNED INT)
+        .replace(/\s+/g, ' ') // Zamienia wielokrotne spacje/tabulacje na jedną pojedynczą spację
 
-        // 3. CZYSZCZENIE TYPÓW DANYCH (Usuwanie UNSIGNED, nawiasów z INT oraz precyzji z DATETIME)
-        .replace(/\bUNSIGNED\s+INT\b/gi, 'INTEGER') // Naprawia "UNSIGNED INT"
-        .replace(/\bUNSIGNED\b/gi, '')               // Usuwa samotne UNSIGNED
-        .replace(/\bINT\s*\(\d+\)/gi, 'INTEGER')     // Zamienia INT(11) na INTEGER
-        .replace(/\b(DATETIME|TIMESTAMP)\s*\(\d+\)/gi, '$1') // Usuwa (6) z DATETIME(6)
-        .replace(/CURRENT_TIMESTAMP\s*\(\d+\)/gi, 'CURRENT_TIMESTAMP') // Usuwa (6) z CURRENT_TIMESTAMP(6)
+        // 3. TRANSLACJA KLUCZY GŁÓWNYCH I AUTO_INCREMENT 
+        .replace(/\bINT\s*\(?\d*\)?\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
+        .replace(/\bBIGINT\s*\(?\d*\)?\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
+        .replace(/\bINTEGER\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
+        .replace(/\bAUTO_INCREMENT/gi, 'AUTOINCREMENT')
 
-        // 4. UPROSZCZENIE POZOSTAŁYCH TYPÓW DANYCH DLA SQLITE
+        // 4. CZYSZCZENIE TYPÓW DANYCH (Usuwanie UNSIGNED, nawiasów z INT oraz precyzji z DATETIME i TIMESTAMP)
+        .replace(/\bUNSIGNED\s+INT\b/gi, 'INTEGER')
+        .replace(/\bUNSIGNED\s+INTEGER\b/gi, 'INTEGER')
+        .replace(/\bUNSIGNED\b/gi, '')               
+        .replace(/\bINT\s*\(\d+\)/gi, 'INTEGER')     
+        .replace(/\bINTEGER\s*\(\d+\)/gi, 'INTEGER') 
+        .replace(/\b(DATETIME|TIMESTAMP)\s*\(\d+\)/gi, '$1') 
+        .replace(/CURRENT_TIMESTAMP\s*\(\d+\)/gi, 'CURRENT_TIMESTAMP') // Czyści CURRENT_TIMESTAMP(6) na CURRENT_TIMESTAMP
+
+        // 5. UPROSZCZENIE POZOSTAŁYCH TYPÓW DANYCH DLA SQLITE
         .replace(/\b(VARCHAR|CHAR|LONGTEXT|MEDIUMTEXT|TINYTEXT)\s*\(\d+\)/gi, 'TEXT')
         .replace(/\b(VARCHAR|CHAR|LONGTEXT|MEDIUMTEXT|TINYTEXT)\b/gi, 'TEXT')
         .replace(/\b(TINYINT|SMALLINT|MEDIUMINT|BIGINT)\s*\(?\d*\)?/gi, 'INTEGER')
         .replace(/\b(DOUBLE|FLOAT|DECIMAL\(\d+,\s*\d+\))\b/gi, 'REAL')
 
-        // 5. OBSŁUGA INSTRUKCJI INSERT IGNORE
+        // 6. OBSŁUGA INSTRUKCJI INSERT IGNORE
         .replace(/\bINSERT\s+IGNORE\s+INTO\b/gi, 'INSERT OR IGNORE INTO')
 
-        // 6. TŁUMACZENIE FUNKCJI (CONCAT, NOW, IFNULL, RAND)
+        // 7. TŁUMACZENIE FUNKCJI (CONCAT, NOW, IFNULL, RAND)
         .replace(/CONCAT\s*\(([^)]+)\)/gi, (match, g1) => {
             return g1.split(',').map(item => item.trim()).join(' || ');
         })
@@ -51,16 +56,15 @@ btnTlumacz.addEventListener('click', () => {
         .replace(/\bIFNULL\b/gi, 'COALESCE')
         .replace(/\bRAND\s*\(\s*\)/gi, 'random()')
 
-        // 7. ZNAKI UCIECZKI, WARUNKI LOGICZNE I SILNIKI TABEL
+        // 8. ZNAKI UCIECZKI, WARUNKI LOGICZNE I SILNIKI TABEL
         .replace(/\\'/g, "''")
         .replace(/\b(TRUE)\b/gi, '1')
         .replace(/\b(FALSE)\b/gi, '0')
         .replace(/ENGINE\s*=\s*\w+\s*(DEFAULT\s+CHARSET\s*=\s*\w+)?\s*(COLLATE\s*=\s*\w+)?/gi, '')
         .replace(/ON\s+UPDATE\s+CURRENT_TIMESTAMP\s*(\(\s*\))?/gi, '');
 
-    // DODATKOWA KOREKTA DLA REZYDUALNEJ KLAUZULI PRIMARY KEY NA DOLE DEFINICJI TABELI
-    // Ponieważ SQLite przeniósł klucz wyżej, usuwamy dublujący się wpis "PRIMARY KEY (id)" na dole tabeli, jeśli istnieje:
-    kodSqlite = kodSqlite.replace(/,\s*PRIMARY%20KEY\s*\([^)]+\)/gi, '');
+    // 9. USUNIĘCIE ZDUBWLOWANEJ KLAUZULI PRIMARY KEY NA DOLE (Skorygowany Regex ze zwykłą spacją)
+    kodSqlite = kodSqlite.replace(/,\s*PRIMARY\s+KEY\s*\([^)]+\)/gi, '');
 
     sqliteOutput.value = kodSqlite;
     btnKopiuj.style.visibility = 'visible';
