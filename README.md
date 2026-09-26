@@ -1,24 +1,24 @@
 # 🚀 Translator MySQL na SQLite (Desktop Web Tool)
 
-Nowoczesne, ultra lekkie i szybkie narzędzie webowe zaprojektowane z myślą o programistach oraz administratorach baz danych, ułatwiające migrację struktur oraz zapytań SQL między systemami **MySQL** a **SQLite**.
+Nowoczesne, ultra lekkie i szybkie narzędzie webowe zaprojektowane na laptopy i komputery, ułatwiające migrację struktur oraz zapytań SQL między systemami **MySQL** a **SQLite**.
 
-▶️ **Uruchom aplikację bezpośrednio w przeglądarce:** [https://dudsonautentico.github.io/mysql-to-sqlite/](https://dudsonautentico.github.io/mysql-to-sqlite/)
+▶️ **Oficjalny adres wdrożonej aplikacji:** [https://dudsonautentico.github.io/mysql-to-sqlite/](https://dudsonautentico.github.io/mysql-to-sqlite/)
 
 ---
 
 ## 📊 Kluczowe Fakty o Projekcie
 
-* **Zorientowany na Desktop:** Interfejs zaprojektowany w układzie dwukolumnowym, zoptymalizowany pod kątem wygody i ergonomii pracy na monitorze komputera. Aplikacja posiada wbudowaną blokadę i komunikat dla urządzeń mobilnych.
-* **100% Prywatności i Lokalności:** Konwersja kodu odbywa się w ułamku sekundy bezpośrednio w Twojej przeglądarce za pomocą zaawansowanych wyrażeń regularnych (Regex). Wklejany kod SQL nie jest wysyłany na żaden zewnętrzny serwer.
+* **Zorientowany na Desktop:** Interfejs zaprojektowany w układzie dwukolumnowym, zoptymalizowany pod kątem wygody i ergonomii pracy na monitorze komputera. Aplikacja posiada wbudowaną blokadę `@media` i komunikat ostrzegawczy dla urządzeń mobilnych w pliku CSS.
+* **100% Prywatności i Lokalności:** Konwersja kodu odbywa się w ułamku sekundy bezpośrednio w przeglądarce za pomocą wyrażeń regularnych (Regex). Wklejany kod SQL nie opuszcza komputera i nie jest wysyłany na żaden zewnętrzny serwer.
 * **Czysty kod (Ultra lekki):** Cała strona waży zaledwie kilkanaście KB. Została napisana w 100% czysto w językach HTML, CSS i natywnym JavaScript — bez użycia jakichkolwiek ciężkich frameworków czy zewnętrznych bibliotek.
-* **Efektowny UI (Glasmorfizm):** Nowoczesny interfejs z efektem szronionego szkła, wyposażony w płynny przełącznik motywów (Jasny / Ciemny) i automatyczne zapamiętywanie wyboru użytkownika za pomocą `localStorage`.
+* **Efektowny UI (Glasmorfizm):** Nowoczesny interfejs z efektem szronionego szkła (`backdrop-filter`), wyposażony w płynny przełącznik motywów (Jasny / Ciemny) w nagłówku i automatyczne zapamiętywanie wyboru użytkownika za pomocą `localStorage`.
 * **Udogodnienia UX:** Dedykowany mechanizm schowka z przyciskiem "Kopiuj" oraz jaskrawozielonym powiadomieniem Toast, a także obsługa skrótu klawiszowego **`Ctrl + Enter`** do natychmiastowej konwersji kodu.
 
 ---
 
 ## 🛠️ Możliwości Silnika Tłumaczącego
 
-Aplikacja automatycznie mapuje i czyści specyficzną dla MySQL składnię, dostosowując ją do restrykcyjnych standardów SQLite:
+Aplikacja automatycznie mapuje i czyści specyficzną dla MySQL składnię, dostosowując ją do standardów SQLite:
 
 * **Struktury Tabel (`CREATE TABLE`):** Automatycznie konwertuje sekwencje `AUTO_INCREMENT` na prawidłowe `INTEGER PRIMARY KEY AUTOINCREMENT`. Usuwa precyzję z typów `DATETIME(6)` i `TIMESTAMP`, modyfikatory wyświetlania wielkości typu `INT(11)` oraz niekompatybilne deklaracje silników (np. `ENGINE=InnoDB`).
 * **Instrukcje i Zapytania:** Przetwarza operacje manipulacji danymi i instrukcje ignorowania błędów (np. `INSERT IGNORE INTO` -> `INSERT OR IGNORE INTO`). Bezpiecznie usuwa komentarze systemowe (`/*!40101 ... */`) oraz backticki ( ` ).
@@ -29,5 +29,5 @@ Aplikacja automatycznie mapuje i czyści specyficzną dla MySQL składnię, dost
 
 ## 📜 Prawa Autorskie i Licencje
 
-* **Kod źródłowy:** Wszelkie prawa zastrzeżone (All Rights Reserved). Własność intelektualna: **Adam Dudek**.
+* **Kod źródłowy:** Wszelkie prawa zastrzeżone (All Rights Reserved). Własność intelektualna: **Adam Dudek**. Kod projektu ma status prywatny (Private Repository).
 * **Zasoby stron trzecich:** Wykorzystane komponenty graficzne SVG (ikony słońca, księżyca, strzałki oraz zatwierdzenia) pochodzą z serwisu SVGRepo i są objęte licencjami MIT oraz Creative Commons (CC-BY). Pełne zestawienie autorów (Konstantin Filatov, Mariusz Ostrowski) oraz warunków licencyjnych znajduje się w załączonym pliku `LICENSE.txt`.
