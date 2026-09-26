@@ -16,12 +16,12 @@ btnTlumacz.addEventListener('click', () => {
 
     let kodSqlite = kodMysql
         // 1. CZYSZCZENIE KOMENTARZY BLOKOWYCH MYSQL ORAZ BACKTICKÓW
-        .replace(/\/\*!.*?\*\/\s*;/g, '')
+        .replace(/\/\*!.*?\*\/;/g, '')
         .replace(/\/\*!.*?\*\//g, '')
         .replace(/`/g, '')
         
-        // 2. NAPRAWA PODWÓJNYCH SPACJI I SŁÓW KLUCZOWYCH (np. aktywny  UNSIGNED INT)
-        .replace(/\s+/g, ' ') // Zamienia wielokrotne spacje/tabulacje na jedną pojedynczą spację
+        // 2. KLUCZOWA POPRAWKA: Czyszczenie wielokrotnych spacji wyłącznie w poziomie (nie niszczy enterów!)
+        .replace(/[^\S\r\n]+/g, ' ')
 
         // 3. TRANSLACJA KLUCZY GŁÓWNYCH I AUTO_INCREMENT 
         .replace(/\bINT\s*\(?\d*\)?\s+AUTO_INCREMENT/gi, 'INTEGER PRIMARY KEY AUTOINCREMENT')
