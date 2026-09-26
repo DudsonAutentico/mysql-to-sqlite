@@ -2,7 +2,7 @@
 
 Nowoczesne, ultra lekkie i szybkie narzędzie webowe zaprojektowane z myślą o programistach oraz administratorach baz danych, ułatwiające migrację struktur oraz zapytań SQL między systemami **MySQL** a **SQLite**.
 
-▶️ **Uruchom aplikację bezpośrednio w przeglądarce:** [https://github.io](https://github.io)
+▶️ **Uruchom aplikację bezpośrednio w przeglądarce:** [https://dudsonautentico.github.io/mysql-to-sqlite/](https://dudsonautentico.github.io/mysql-to-sqlite/)
 
 ---
 
